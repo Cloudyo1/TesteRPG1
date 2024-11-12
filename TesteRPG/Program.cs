@@ -29,6 +29,9 @@ namespace TesteRPG
 
             Dano Dano = new Dano(damage, type);
 
+            Console.WriteLine($"Tipo de dano geral: {Dano.generaltype[Dano.generalfigure]}");
+            Console.WriteLine();
+
             Console.WriteLine("Efeitos do Dano:");
             Console.WriteLine($"Sangramento: {Dano.sangramento}");
             Console.WriteLine($"Atordoamento: {Dano.atordoamento}");
@@ -52,13 +55,9 @@ namespace TesteRPG
                 type = Console.ReadLine();
 
                 if (type != null)
-                {
-
-
+                { 
                     confirma = type.ToLower() switch
-
                     {
-
                         "corte" => false,
                         "impacto" => false,
                         "perfuração" => false,
@@ -83,6 +82,7 @@ namespace TesteRPG
             }
             Console.WriteLine("Tipo Inserido: " + type);
             Console.WriteLine();
+
             return type ?? "unknown";
         }
 
@@ -92,6 +92,7 @@ namespace TesteRPG
             public int dano { get; }
             public string tipo { get; }
             public string categoria { get; }
+            public int generalfigure { get; private set; }
 
             public bool sangramento { get; private set; }
             public bool atordoamento { get; private set; }
@@ -116,14 +117,20 @@ namespace TesteRPG
                     case "corte":
                     case "impacto":
                     case "perfuracao":
+                        generalfigure = 0;
                         return generaltype[0];
+
                     case "fogo":
                     case "gelo":
                     case "toxina":
                     case "eletricidade":
+                        generalfigure = 1;
                         return generaltype[1];
+
                     case "umbral":
+                        generalfigure = 2;
                         return generaltype[2];
+
                     default:
                         return "unknown";
                 }
