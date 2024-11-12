@@ -60,7 +60,7 @@ namespace TesteRPG
                     {
                         "corte" => false,
                         "impacto" => false,
-                        "perfuração" => false,
+                        "perfuracao" => false,
                         "fogo" => false,
                         "gelo" => false,
                         "toxina" => false,
