@@ -4,7 +4,7 @@ namespace TesteRPG
     {
         static void Main(String[] args)
         {
-            Console.WriteLine("Digite seu dano");
+            Console.Write("Digite seu dano: ");
             int damage = 0;
             bool loop = true;
             string? input = "";
@@ -28,6 +28,17 @@ namespace TesteRPG
             string type = tipodedano();
 
             Dano Dano = new Dano(damage, type);
+
+            Console.WriteLine("Efeitos do Dano:");
+            Console.WriteLine($"Sangramento: {Dano.sangramento}");
+            Console.WriteLine($"Atordoamento: {Dano.atordoamento}");
+            Console.WriteLine($"Vulneravel: {Dano.vulneravel}");
+            Console.WriteLine($"Cauterizacao: {Dano.cauterizacao}");
+            Console.WriteLine($"Veneno: {Dano.veneno}");
+            Console.WriteLine($"Lentidao: {Dano.lentidao}");
+            Console.WriteLine($"Cadeia: {Dano.cadeia}");
+
+            Console.ReadKey();
         }
 
         static String tipodedano()
@@ -37,8 +48,7 @@ namespace TesteRPG
 
             while (confirma) {
 
-                Console.WriteLine("Insira Seu Tipo de Dano");
-                Console.WriteLine();
+                Console.Write("Insira Seu Tipo de Dano: ");
                 type = Console.ReadLine();
 
                 if (type != null)
@@ -68,9 +78,11 @@ namespace TesteRPG
                 if (confirma)
                 {
                     Console.WriteLine("Tipo Invalido Inserido: " + type);
+                    Console.WriteLine();
                 }
             }
             Console.WriteLine("Tipo Inserido: " + type);
+            Console.WriteLine();
             return type ?? "unknown";
         }
 
