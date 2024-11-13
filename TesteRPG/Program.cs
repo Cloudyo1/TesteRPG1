@@ -4,32 +4,23 @@ namespace TesteRPG
     {
         static void Main(String[] args)
         {
-            Console.Write("Digite seu dano: ");
-            int damage = 0;
-            bool loop = true;
-            string? input = "";
+            int damage, penetration, slicing;
+            string type;
 
-            while (loop)
-            {
-                input = Console.ReadLine();
-                if (input != null && int.TryParse(input, out damage))
-                {
-                    Console.WriteLine("Dano Inserido: " + damage);
-                    Console.WriteLine();
-                    loop = false;
-                }
-                else
-                {
-                    Console.WriteLine("Valor Invalido, insira um numero.");
-                    Console.WriteLine();
-                }
-            }
+            Danos(out damage, out type, out penetration, out slicing);
 
-            string type = tipodedano();
+            Dano Dano = new Dano(damage, type, penetration, slicing);
 
-            Dano Dano = new Dano(damage, type);
+            int health, armor, reflection, shield, durability;
 
-            Console.WriteLine($"Tipo de dano geral: {Dano.generaltype[Dano.generalfigure]}");
+            Resistencias(out health, out armor, out reflection, out shield, out durability);
+
+            Alvo Alvo = new Alvo(health, armor, reflection, shield, durability);
+
+            Console.WriteLine($"Tipo de Dano Geral: {Dano.generaltype[Dano.generalfigure]}");
+            Console.WriteLine($"Dano: {Dano.dano}");
+            Console.WriteLine($"Penetracao: {Dano.penetracao}");
+            Console.WriteLine($"Fatiamento: {Dano.fatiamento}");
             Console.WriteLine();
 
             Console.WriteLine("Efeitos do Dano:");
@@ -40,11 +31,20 @@ namespace TesteRPG
             Console.WriteLine($"Veneno: {Dano.veneno}");
             Console.WriteLine($"Lentidao: {Dano.lentidao}");
             Console.WriteLine($"Cadeia: {Dano.cadeia}");
+            Console.WriteLine();
+
+            Console.WriteLine("Sumario do Alvo: ");
+            Console.WriteLine($"Vida do Alvo: {Alvo.vida}");
+            Console.WriteLine($"Armadura do Alvo: {Alvo.armadura}");
+            Console.WriteLine($"Reflexao do Alvo: {Alvo.reflexao}");
+            Console.WriteLine($"Escudo do Alvo: {Alvo.escudo}");
+            Console.WriteLine($"Durabilidade do Alvo: {Alvo.durabilidade}");
+            Console.WriteLine();
 
             Console.ReadKey();
         }
 
-        static String tipodedano()
+        static String Tipodedano()
         {
             bool confirma = true;
             string? type = "";
@@ -86,14 +86,192 @@ namespace TesteRPG
             return type ?? "unknown";
         }
 
+        static void Danos(out int damage, out String type, out int penetration, out int slicing)
+        {
+            Console.Write("Digite Seu Dano: ");
+            damage = 0;
+            bool loop = true;
+            string? input = "";
+
+            while (loop)
+            {
+                input = Console.ReadLine();
+                if (input != null && int.TryParse(input, out damage))
+                {
+                    Console.WriteLine("Dano Inserido: " + damage);
+                    Console.WriteLine();
+                    loop = false;
+                }
+                else
+                {
+                    Console.WriteLine("Valor Invalido, Insira um Numero.");
+                    Console.WriteLine();
+                }
+            }
+
+            type = Tipodedano();
+
+            Console.Write("Digite Sua Penetracao: ");
+            penetration = 0;
+            bool loop1 = true;
+            string? input1 = "";
+
+            while (loop1)
+            {
+                input1 = Console.ReadLine();
+                if (input1 != null && int.TryParse(input1, out penetration))
+                {
+                    Console.WriteLine("Penetracao Inserida: " + penetration);
+                    Console.WriteLine();
+                    loop1 = false;
+                }
+                else
+                {
+                    Console.WriteLine("Valor Invalido, Insira um Numero.");
+                    Console.WriteLine();
+                }
+            }
+
+            Console.Write("Digite Seu Fatiamento: ");
+            slicing = 0;
+            bool loop2 = true;
+            string? input2 = "";
+
+            while (loop2)
+            {
+                input2 = Console.ReadLine();
+                if (input2 != null && int.TryParse(input2, out slicing))
+                {
+                    Console.WriteLine("Fatiamento Inserido: " + slicing);
+                    Console.WriteLine();
+                    loop2 = false;
+                }
+                else
+                {
+                    Console.WriteLine("Valor Invalido, Insira um Numero.");
+                    Console.WriteLine();
+                }
+            }
+        }
+
+        static void Resistencias(out int health, out int armor, out int reflection, out int shield, out int durability)
+        {
+            Console.Write("Digite a Vida do Alvo: ");
+            health = 0;
+            bool loop = true;
+            string? input = "";
+
+            while (loop)
+            {
+                input = Console.ReadLine();
+                if (input != null && int.TryParse(input, out health))
+                {
+                    Console.WriteLine("Vida Inserida: " + health);
+                    Console.WriteLine();
+                    loop = false;
+                }
+                else
+                {
+                    Console.WriteLine("Valor Invalido, Insira um Numero.");
+                    Console.WriteLine();
+                }
+            }
+
+            Console.Write("Digite a Armadura do Alvo: ");
+            armor = 0;
+            bool loop1 = true;
+            string? input1 = "";
+
+            while (loop1)
+            {
+                input1 = Console.ReadLine();
+                if (input1 != null && int.TryParse(input1, out armor))
+                {
+                    Console.WriteLine("Armadura Inserida: " + armor);
+                    Console.WriteLine();
+                    loop1 = false;
+                }
+                else
+                {
+                    Console.WriteLine("Valor Invalido, Insira um Numero.");
+                    Console.WriteLine();
+                }
+            }
+
+            Console.Write("Digite a Reflexao do Alvo: ");
+            reflection = 0;
+            bool loop2 = true;
+            string? input2 = "";
+
+            while (loop2)
+            {
+                input2 = Console.ReadLine();
+                if (input2 != null && int.TryParse(input2, out reflection))
+                {
+                    Console.WriteLine("Reflexao Inserida: " + reflection);
+                    Console.WriteLine();
+                    loop2 = false;
+                }
+                else
+                {
+                    Console.WriteLine("Valor Invalido, Insira um Numero.");
+                    Console.WriteLine();
+                }
+            }
+
+            Console.Write("Digite o Escudo do Alvo: ");
+            shield = 0;
+            bool loop3 = true;
+            string? input3 = "";
+
+            while (loop3)
+            {
+                input3 = Console.ReadLine();
+                if (input3 != null && int.TryParse(input3, out shield))
+                {
+                    Console.WriteLine("Escudo Inserido: " + shield);
+                    Console.WriteLine();
+                    loop3 = false;
+                }
+                else
+                {
+                    Console.WriteLine("Valor Invalido, Insira um Numero.");
+                    Console.WriteLine();
+                }
+            }
+
+            Console.Write("Digite a Durabilidade do Alvo: ");
+            durability = 0;
+            bool loop4 = true;
+            string? input4 = "";
+
+            while (loop4)
+            {
+                input4 = Console.ReadLine();
+                if (input4 != null && int.TryParse(input4, out durability))
+                {
+                    Console.WriteLine("Durabilidade Inserida: " + durability);
+                    Console.WriteLine();
+                    loop4 = false;
+                }
+                else
+                {
+                    Console.WriteLine("Valor Invalido, Insira um Numero.");
+                    Console.WriteLine();
+                }
+            }
+        }
+
         class Dano
         {
             public string[] generaltype = { "Fisico", "Magico", "Verdadeiro" };
             public int dano { get; }
             public string tipo { get; }
+            public int penetracao { get; }
+            public int fatiamento { get;}
             public string categoria { get; }
             public int generalfigure { get; private set; }
-
+            
             public bool sangramento { get; private set; }
             public bool atordoamento { get; private set; }
             public bool vulneravel { get; private set; }
@@ -102,15 +280,17 @@ namespace TesteRPG
             public bool lentidao { get; private set; }
             public bool cadeia { get; private set; }
 
-            public Dano(int dano, String tipo)
+            public Dano(int dano, String tipo, int penetracao, int fatiamento)
             {
                 this.dano = dano;
                 this.tipo = tipo;
-                this.categoria = tipogeral(tipo);
-                efeito(tipo);
+                this.penetracao = penetracao;
+                this.fatiamento = fatiamento;
+                this.categoria = Tipogeral(tipo);
+                Efeito(tipo);
             }
 
-            private string tipogeral(string tipo)
+            private string Tipogeral(string tipo)
             {
                 switch (tipo.ToLower())
                 {
@@ -136,7 +316,7 @@ namespace TesteRPG
                 }
             }
 
-            private void efeito(string tipo)
+            private void Efeito(string tipo)
             {
                 Random random = new Random();
 
@@ -169,10 +349,28 @@ namespace TesteRPG
                     case "eletricidade":
                         cadeia = true;
                         break;
-
+                        
                     default:
                         break;
                 }
+            }
+        }
+
+        class Alvo
+        {
+            public int vida { get; }
+            public int armadura { get; }
+            public int reflexao { get; }
+            public int escudo { get; }
+            public int durabilidade {  get; }
+
+            public Alvo(int vida, int armadura, int reflexao, int escudo, int durabilidade)
+            {
+                this.vida = vida;
+                this.armadura = armadura;
+                this.reflexao = reflexao;
+                this.escudo = escudo;
+                this.durabilidade = durabilidade;
             }
         }
     }
