@@ -11,11 +11,11 @@ namespace TesteRPG
 
             Dano Dano = new Dano(damage, type, penetration, slicing);
 
-            int health, armor, reflection, shield, durability;
+            int healthmax, armor, reflection, shield, durability, health;
 
-            Resistencias(out health, out armor, out reflection, out shield, out durability);
+            Resistencias(out healthmax, out armor, out reflection, out shield, out durability, out health);
 
-            Alvo Alvo = new Alvo(health, armor, reflection, shield, durability);
+            Alvo Alvo = new Alvo(healthmax, armor, reflection, shield, durability, health);
 
             Console.WriteLine($"Tipo de Dano Geral: {Dano.generaltype[Dano.generalfigure]}");
             Console.WriteLine($"Dano: {Dano.dano}");
@@ -34,11 +34,12 @@ namespace TesteRPG
             Console.WriteLine();
 
             Console.WriteLine("Sumario do Alvo: ");
-            Console.WriteLine($"Vida do Alvo: {Alvo.vida}");
+            Console.WriteLine($"Vida Maxima do Alvo: {Alvo.vidamax}");
             Console.WriteLine($"Armadura do Alvo: {Alvo.armadura}");
             Console.WriteLine($"Reflexao do Alvo: {Alvo.reflexao}");
             Console.WriteLine($"Escudo do Alvo: {Alvo.escudo}");
             Console.WriteLine($"Durabilidade do Alvo: {Alvo.durabilidade}");
+            Console.WriteLine($"Vida Atual do Alvo: {Alvo.vida}");
             Console.WriteLine();
 
             Console.ReadKey();
@@ -154,19 +155,19 @@ namespace TesteRPG
             }
         }
 
-        static void Resistencias(out int health, out int armor, out int reflection, out int shield, out int durability)
+        static void Resistencias(out int healthmax, out int armor, out int reflection, out int shield, out int durability, out int health)
         {
-            Console.Write("Digite a Vida do Alvo: ");
-            health = 0;
+            Console.Write("Digite a Vida Maxima do Alvo: ");
+            healthmax = 0;
             bool loop = true;
             string? input = "";
 
             while (loop)
             {
                 input = Console.ReadLine();
-                if (input != null && int.TryParse(input, out health))
+                if (input != null && int.TryParse(input, out healthmax))
                 {
-                    Console.WriteLine("Vida Inserida: " + health);
+                    Console.WriteLine("Vida Maxima Inserida: " + healthmax);
                     Console.WriteLine();
                     loop = false;
                 }
@@ -253,6 +254,27 @@ namespace TesteRPG
                     Console.WriteLine("Durabilidade Inserida: " + durability);
                     Console.WriteLine();
                     loop4 = false;
+                }
+                else
+                {
+                    Console.WriteLine("Valor Invalido, Insira um Numero.");
+                    Console.WriteLine();
+                }
+            }
+
+            Console.Write("Digite a Vida Atual do Alvo: ");
+            health = 0;
+            bool loop5 = true;
+            string? input5 = "";
+
+            while (loop5)
+            {
+                input5 = Console.ReadLine();
+                if (input5 != null && int.TryParse(input5, out health))
+                {
+                    Console.WriteLine("Vida Atual Inserida: " + health);
+                    Console.WriteLine();
+                    loop5 = false;
                 }
                 else
                 {
@@ -358,19 +380,21 @@ namespace TesteRPG
 
         class Alvo
         {
-            public int vida { get; }
+            public int vidamax { get; }
             public int armadura { get; }
             public int reflexao { get; }
             public int escudo { get; }
             public int durabilidade {  get; }
+            public int vida { get; }
 
-            public Alvo(int vida, int armadura, int reflexao, int escudo, int durabilidade)
+            public Alvo(int vidamax, int armadura, int reflexao, int escudo, int durabilidade, int vida)
             {
-                this.vida = vida;
+                this.vidamax = vidamax;
                 this.armadura = armadura;
                 this.reflexao = reflexao;
                 this.escudo = escudo;
                 this.durabilidade = durabilidade;
+                this.vida = vida;
             }
         }
     }
