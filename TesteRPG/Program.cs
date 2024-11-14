@@ -17,30 +17,9 @@ namespace TesteRPG
 
             Alvo Alvo = new Alvo(healthmax, armor, reflection, shield, durability, health);
 
-            Console.WriteLine($"Tipo de Dano Geral: {Dano.generaltype[Dano.generalfigure]}");
-            Console.WriteLine($"Dano: {Dano.dano}");
-            Console.WriteLine($"Penetracao: {Dano.penetracao}");
-            Console.WriteLine($"Fatiamento: {Dano.fatiamento}");
-            Console.WriteLine();
+            Lingering(Dano);
 
-            Console.WriteLine("Efeitos do Dano:");
-            Console.WriteLine($"Sangramento: {Dano.sangramento}");
-            Console.WriteLine($"Atordoamento: {Dano.atordoamento}");
-            Console.WriteLine($"Vulneravel: {Dano.vulneravel}");
-            Console.WriteLine($"Cauterizacao: {Dano.cauterizacao}");
-            Console.WriteLine($"Veneno: {Dano.veneno}");
-            Console.WriteLine($"Lentidao: {Dano.lentidao}");
-            Console.WriteLine($"Cadeia: {Dano.cadeia}");
-            Console.WriteLine();
-
-            Console.WriteLine("Sumario do Alvo: ");
-            Console.WriteLine($"Vida Maxima do Alvo: {Alvo.vidamax}");
-            Console.WriteLine($"Armadura do Alvo: {Alvo.armadura}");
-            Console.WriteLine($"Reflexao do Alvo: {Alvo.reflexao}");
-            Console.WriteLine($"Escudo do Alvo: {Alvo.escudo}");
-            Console.WriteLine($"Durabilidade do Alvo: {Alvo.durabilidade}");
-            Console.WriteLine($"Vida Atual do Alvo: {Alvo.vida}");
-            Console.WriteLine();
+            Display(Dano, Alvo);
 
             Console.ReadKey();
         }
@@ -92,7 +71,7 @@ namespace TesteRPG
             Console.Write("Digite Seu Dano: ");
             damage = 0;
             bool loop = true;
-            string? input = "";
+            string? input;
 
             while (loop)
             {
@@ -115,7 +94,7 @@ namespace TesteRPG
             Console.Write("Digite Sua Penetracao: ");
             penetration = 0;
             bool loop1 = true;
-            string? input1 = "";
+            string? input1;
 
             while (loop1)
             {
@@ -136,7 +115,7 @@ namespace TesteRPG
             Console.Write("Digite Seu Fatiamento: ");
             slicing = 0;
             bool loop2 = true;
-            string? input2 = "";
+            string? input2;
 
             while (loop2)
             {
@@ -160,7 +139,7 @@ namespace TesteRPG
             Console.Write("Digite a Vida Maxima do Alvo: ");
             healthmax = 0;
             bool loop = true;
-            string? input = "";
+            string? input;
 
             while (loop)
             {
@@ -202,7 +181,7 @@ namespace TesteRPG
             Console.Write("Digite a Reflexao do Alvo: ");
             reflection = 0;
             bool loop2 = true;
-            string? input2 = "";
+            string? input2;
 
             while (loop2)
             {
@@ -223,7 +202,7 @@ namespace TesteRPG
             Console.Write("Digite o Escudo do Alvo: ");
             shield = 0;
             bool loop3 = true;
-            string? input3 = "";
+            string? input3;
 
             while (loop3)
             {
@@ -244,7 +223,7 @@ namespace TesteRPG
             Console.Write("Digite a Durabilidade do Alvo: ");
             durability = 0;
             bool loop4 = true;
-            string? input4 = "";
+            string? input4;
 
             while (loop4)
             {
@@ -265,7 +244,7 @@ namespace TesteRPG
             Console.Write("Digite a Vida Atual do Alvo: ");
             health = 0;
             bool loop5 = true;
-            string? input5 = "";
+            string? input5;
 
             while (loop5)
             {
@@ -284,6 +263,107 @@ namespace TesteRPG
             }
         }
 
+        static void Display(Dano Dano, Alvo Alvo)
+        {
+            Console.WriteLine($"Tipo de Dano Geral: {Dano.generaltype[Dano.generalfigure]}");
+            Console.WriteLine($"Dano: {Dano.dano}");
+            Console.WriteLine($"Penetracao: {Dano.penetracao}");
+            Console.WriteLine($"Fatiamento: {Dano.fatiamento}");
+            Console.WriteLine();
+
+            Console.WriteLine("Efeitos do Dano:");
+            Console.WriteLine($"Sangramento: {Dano.sangramento}");
+            Console.WriteLine($"Atordoamento: {Dano.atordoamento}");
+            Console.WriteLine($"Vulneravel: {Dano.vulneravel}");
+            Console.WriteLine($"Cauterizacao: {Dano.cauterizacao}");
+            Console.WriteLine($"Veneno: {Dano.veneno}");
+            Console.WriteLine($"Lentidao: {Dano.lentidao}");
+            Console.WriteLine($"Cadeia: {Dano.cadeia}");
+            Console.WriteLine();
+
+            Console.WriteLine("Status do Alvo: ");
+            Console.WriteLine($"Vida Maxima do Alvo: {Alvo.vidamax}");
+            Console.WriteLine($"Armadura do Alvo: {Alvo.armadura}");
+            Console.WriteLine($"Reflexao do Alvo: {Alvo.reflexao}");
+            Console.WriteLine($"Escudo do Alvo: {Alvo.escudo}");
+            Console.WriteLine($"Durabilidade do Alvo: {Alvo.durabilidade}");
+            Console.WriteLine($"Vida Atual do Alvo: {Alvo.vida}");
+            Console.WriteLine();
+        }
+
+        static void Lingering(Dano Dano)
+        {
+            bool confirma = true;
+            string? input;
+
+            while (confirma)
+            {
+
+                Console.Write("O Alvo esta Envenenado? (Sim/Nao) ");
+                input = Console.ReadLine();
+
+                if (input != null)
+                {
+                    confirma = input.ToLower() switch
+                    {
+                        "sim" => false,
+                        "nao" => false,
+                        _ => true
+                    };
+
+                    if (input.ToLower() == "sim")
+                    {
+                        Dano.veneno = true;
+                    }
+                }
+                else
+                {
+                    confirma = true;
+                }
+                if (confirma)
+                {
+                    Console.WriteLine("Resposta Invalida Inserida: " + input);
+                    Console.WriteLine();
+                }
+            }
+            Console.WriteLine();
+
+            bool confirma1 = true;
+            string? input1;
+
+            while (confirma1)
+            {
+
+                Console.Write("O Alvo esta Vulneravel? (Sim/Nao) ");
+                input1 = Console.ReadLine();
+
+                if (input1 != null)
+                {
+                    confirma1 = input1.ToLower() switch
+                    {
+                        "sim" => false,
+                        "nao" => false,
+                        _ => true
+                    };
+                    if (input1.ToLower() == "sim")
+                    {
+                        Dano.vulneravel = true;
+                    }
+                }
+                else
+                {
+                    confirma1 = true;
+                }
+
+                if (confirma1)
+                {
+                    Console.WriteLine("Resposta Invalida Inserida: " + input1);
+                    Console.WriteLine();
+                }
+            }
+            Console.WriteLine();
+        }
+
         class Dano
         {
             public string[] generaltype = { "Fisico", "Magico", "Verdadeiro" };
@@ -296,9 +376,9 @@ namespace TesteRPG
             
             public bool sangramento { get; private set; }
             public bool atordoamento { get; private set; }
-            public bool vulneravel { get; private set; }
+            public bool vulneravel { get; set; }
             public bool cauterizacao { get; private set; }
-            public bool veneno { get; private set; }
+            public bool veneno { get; set; }
             public bool lentidao { get; private set; }
             public bool cadeia { get; private set; }
 
