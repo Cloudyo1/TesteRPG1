@@ -21,6 +21,8 @@ namespace TesteRPG
 
             Display(Dano, Alvo);
 
+            Calculo(Dano, Alvo);
+
             Console.ReadKey();
         }
 
@@ -160,7 +162,7 @@ namespace TesteRPG
             Console.Write("Digite a Armadura do Alvo: ");
             armor = 0;
             bool loop1 = true;
-            string? input1 = "";
+            string? input1;
 
             while (loop1)
             {
@@ -363,6 +365,64 @@ namespace TesteRPG
             }
             Console.WriteLine();
         }
+        static void Calculo(Dano Dano, Alvo Alvo)
+        {
+            double finalDamage = Dano.dano;
+
+            double reducedArmor = Alvo.armadura * (1 - Dano.penetracao / 100.0);
+            double reducedReflection = Alvo.reflexao * (1 - Dano.fatiamento / 100.0);
+
+            if (Dano.categoria == "Fisico")
+            {
+                double armorReduction = Math.Min(reducedArmor / 10 * 0.01, 0.75);
+                finalDamage *= (1 - armorReduction);
+            }
+            else if (Dano.categoria == "Magico")
+            {
+                double reflectionReduction = Math.Min(reducedReflection / 20 * 0.01, 0.50);
+                finalDamage *= (1 - reflectionReduction);
+            }
+
+            finalDamage -= Alvo.durabilidade;
+
+            finalDamage = Math.Max(0, finalDamage);
+
+            if (Dano.sangramento)
+            {
+                double bleedDamage = Alvo.vida * 0.10;
+                Console.WriteLine($"Sangramento Ativo: Dano Adicional de {bleedDamage}");
+                finalDamage += bleedDamage;
+            }
+
+            if (Dano.vulneravel)
+            {
+                Console.WriteLine("Alvo Vulnerável: Dano Aumentado em 25%");
+                finalDamage *= 1.25;
+            }
+
+            if (Alvo.escudo > 0)
+            {
+                int damageToShield = (int)Math.Min(finalDamage, Alvo.escudo);
+                Alvo.escudo -= damageToShield;
+                finalDamage -= damageToShield;
+                Console.WriteLine($"Dano Absorvido pelo Escudo: {damageToShield}");
+            }
+
+            Alvo.vida -= (int)Math.Floor(finalDamage);
+
+            if (Dano.veneno)
+            {
+                int poisonDamage = (int)(Alvo.vidamax * 0.05);
+                Console.WriteLine($"Veneno Ativo: Dano Adicional de {poisonDamage}");
+                Alvo.vida -= poisonDamage;
+            }
+
+            Alvo.vida = Math.Max(0, Alvo.vida);
+
+            Console.WriteLine($"Dano Final Aplicado: {Math.Floor(finalDamage)}");
+            Console.WriteLine($"Escudo Restante: {Alvo.escudo}");
+            Console.WriteLine($"Vida Atual do Alvo: {Alvo.vida}");
+        }
 
         class Dano
         {
@@ -463,9 +523,9 @@ namespace TesteRPG
             public int vidamax { get; }
             public int armadura { get; }
             public int reflexao { get; }
-            public int escudo { get; }
+            public int escudo { get; set;  }
             public int durabilidade {  get; }
-            public int vida { get; }
+            public int vida { get; set;  }
 
             public Alvo(int vidamax, int armadura, int reflexao, int escudo, int durabilidade, int vida)
             {
