@@ -2,6 +2,7 @@ namespace TesteRPG
 {
     internal class Programa
     {
+        #region main
         static void Main(String[] args)
         {
             int damage, penetration, slicing;
@@ -25,7 +26,9 @@ namespace TesteRPG
 
             Console.ReadKey();
         }
+        #endregion
 
+        #region tipodedano
         static String Tipodedano()
         {
             bool confirma = true;
@@ -67,7 +70,9 @@ namespace TesteRPG
 
             return type ?? "unknown";
         }
+        #endregion
 
+        #region danos
         static void Danos(out int damage, out String type, out int penetration, out int slicing)
         {
             Console.Write("Digite Seu Dano: ");
@@ -135,7 +140,9 @@ namespace TesteRPG
                 }
             }
         }
+        #endregion
 
+        #region resistencias
         static void Resistencias(out int healthmax, out int armor, out int reflection, out int shield, out int durability, out int health)
         {
             Console.Write("Digite a Vida Maxima do Alvo: ");
@@ -264,7 +271,9 @@ namespace TesteRPG
                 }
             }
         }
+        #endregion
 
+        #region display
         static void Display(Dano Dano, Alvo Alvo)
         {
             Console.WriteLine($"Tipo de Dano Geral: {Dano.generaltype[Dano.generalfigure]}");
@@ -292,7 +301,9 @@ namespace TesteRPG
             Console.WriteLine($"Vida Atual do Alvo: {Alvo.vida}");
             Console.WriteLine();
         }
+        #endregion
 
+        #region lingering
         static void Lingering(Dano Dano)
         {
             bool confirma = true;
@@ -365,6 +376,9 @@ namespace TesteRPG
             }
             Console.WriteLine();
         }
+        #endregion
+
+        #region calculo
         static void Calculo(Dano Dano, Alvo Alvo)
         {
             double finalDamage = Dano.dano;
@@ -423,9 +437,12 @@ namespace TesteRPG
             Console.WriteLine($"Escudo Restante: {Alvo.escudo}");
             Console.WriteLine($"Vida Atual do Alvo: {Alvo.vida}");
         }
+        #endregion
 
+        #region classedano
         class Dano
         {
+            #region fieldsdano
             public string[] generaltype = { "Fisico", "Magico", "Verdadeiro" };
             public int dano { get; }
             public string tipo { get; }
@@ -441,7 +458,9 @@ namespace TesteRPG
             public bool veneno { get; set; }
             public bool lentidao { get; private set; }
             public bool cadeia { get; private set; }
+            #endregion
 
+            #region construtordano
             public Dano(int dano, String tipo, int penetracao, int fatiamento)
             {
                 this.dano = dano;
@@ -451,7 +470,9 @@ namespace TesteRPG
                 this.categoria = Tipogeral(tipo);
                 Efeito(tipo);
             }
+            #endregion
 
+            #region tipogeral
             private string Tipogeral(string tipo)
             {
                 switch (tipo.ToLower())
@@ -477,7 +498,9 @@ namespace TesteRPG
                         return "unknown";
                 }
             }
+            #endregion
 
+            #region efeito
             private void Efeito(string tipo)
             {
                 Random random = new Random();
@@ -516,17 +539,22 @@ namespace TesteRPG
                         break;
                 }
             }
+            #endregion
         }
+        #endregion
 
+        #region classealvo
         class Alvo
         {
+            #region fieldsalvo
             public int vidamax { get; }
             public int armadura { get; }
             public int reflexao { get; }
             public int escudo { get; set;  }
             public int durabilidade {  get; }
             public int vida { get; set;  }
-
+            #endregion
+            #region construtoralvo
             public Alvo(int vidamax, int armadura, int reflexao, int escudo, int durabilidade, int vida)
             {
                 this.vidamax = vidamax;
@@ -536,6 +564,8 @@ namespace TesteRPG
                 this.durabilidade = durabilidade;
                 this.vida = vida;
             }
+            #endregion
         }
+        #endregion
     }
 }
