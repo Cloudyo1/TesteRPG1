@@ -393,7 +393,7 @@ namespace TesteRPG
             }
             else if (Dano.categoria == "Magico")
             {
-                double reflectionReduction = Math.Min(reducedReflection / 20 * 0.01, 0.50);
+                double reflectionReduction = Math.Max(0, reducedReflection / 1000 * 0.5);
                 finalDamage *= (1 - reflectionReduction);
             }
 
@@ -554,6 +554,7 @@ namespace TesteRPG
             public int durabilidade {  get; }
             public int vida { get; set;  }
             #endregion
+
             #region construtoralvo
             public Alvo(int vidamax, int armadura, int reflexao, int escudo, int durabilidade, int vida)
             {
